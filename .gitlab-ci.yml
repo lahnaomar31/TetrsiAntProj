@@ -2,9 +2,15 @@ stages:
   - build
   - test
 
+image: docker:latest
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay2
+
 before_script:
-  # Installe Docker
-  - apt-get update && apt-get install -y docker.io
   # Connexion à Docker Hub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
