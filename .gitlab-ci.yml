@@ -2,24 +2,17 @@ stages:
   - build
   - test
 
-compile_job:
+build_job:
   stage: build
   script:
-    - apt-get update && apt-get install -y ant
-    - curl -O https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.5.0/ivy-2.5.0.jar
-    - ant -lib ivy-2.5.0.jar compile
-  artifacts:
-    paths:
-      - bin/  
+    - docker build -t my-tetris-app .
 
 test_job:
   stage: test
   script:
-    - apt-get update && apt-get install -y ant ivy
-    - curl -O https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.5.0/ivy-2.5.0.jar
-    - ant -lib ivy-2.5.0.jar test  
+    - docker run --rm my-tetris-app
   artifacts:
     reports:
-      junit: bin/test-results/TEST-*.xml  
-	paths:
-	  - bin/test-results/
+      junit: bin/test-results/TEST-*.xml
+    paths:
+      - bin/test-results/
