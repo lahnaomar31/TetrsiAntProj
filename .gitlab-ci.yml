@@ -7,7 +7,11 @@ compile_job:
   script:
     - apt-get update && apt-get install -y ant
     - curl -O https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.5.0/ivy-2.5.0.jar
+<<<<<<< HEAD
     - ant -lib ivy-2.5.0.jar compile
+=======
+    - ant compile
+>>>>>>> fdb998df37fe86fe0b9ea52b34631a636a555252
   artifacts:
     paths:
       - bin/  # Chemin où se trouvent les fichiers compilés
