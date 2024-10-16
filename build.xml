@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Compilation de Tetris" default="compile" xmlns:ivy="antlib:org.apache.ivy.ant" >
+
+    <!-- Définition des propriétés pour les chemins et versions -->
+    <property name="src" location="src"/>
+    <property name="docs.dir" location="javadoc"/>
+    <property name="bin" location="bin"/>
+    <property name="test.results.dir" location="bin/test-results"/>
+    <property name="test.reports" location="bin/test-reports"/>
+    <property name="libs" location="lib"/>
+    <property name="main-class" value="fr.ubo.tetris.Tetris"/>
+    <property name="compile.classpath">
+        ${libs}/commons-lang3-jar-3.5.jar
+    </property>
+    <property name="version" value='1.0' />
+    
+    <!-- Nettoyage des fichiers compilés -->
+    <target name="clean">
+        <delete dir="bin" />
+        <delete dir="lib" />
+        <!-- Optionnel : recréation du répertoire bin -->
+        <mkdir dir="bin" />
+        <mkdir dir="lib" />
+        <echo message="Suppression des fichiers issus de la compilation" />
+    </target>
+
+    <!-- Compilation des fichiers source -->
+    <target name="compile" depends="clean, retrieve">
+        <javac srcdir="src" destdir="bin" includeantruntime="false">
+            <classpath>
+                <pathelement path="lib/commons-lang3-jar-3.5.jar"/>
+            </classpath>
+        </javac> 
+    </target>
+
+    <!-- Création du fichier JAR après compilation -->
+    <target name="dist" depends="clean, compile">
+        <mkdir dir="dist"/>
+        <!-- Création du fichier JAR exécutable -->
+        <jar destfile="dist/Tetris.jar" basedir="bin">
+            <manifest>
+                <attribute name="Built-By" value="LAHNA-Omar"/>
+                <attribute name="Implementation-Version" value="1.0"/>
+                <attribute name="Main-Class" value="fr.ubo.tetris.Tetris"/>
+                <attribute name="Class-Path" value='${compile.classpath}'/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- Récupération des dépendances avec Ivy -->
+    <target name="retrieve">
+        <ivy:settings/>
+        <ivy:resolve/>
+        <ivy:retrieve pattern="lib/[artifact]-[type]-[revision].[ext]" sync="true" type="jar"/>
+    </target>
+
+    <!-- Compilation des tests -->
+    <target name="compile-test" depends="compile">
+        <mkdir dir="${bin}/test"/>
+        <javac srcdir="test" destdir="${bin}/test" includeantruntime="false">
+            <classpath>
+                <!-- Inclure les fichiers compilés -->
+                <pathelement path="${bin}"/>
+                <pathelement path="${src}"/>  
+                <fileset dir="${libs}">
+                    <include name="junit-jar-4.12.jar"/>
+                    <include name="hamcrest-core-jar-1.3.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+
+    <!-- Exécution des tests -->
+    <target name="test" depends="compile-test">
+        <mkdir dir="${test.results.dir}"/>
+        <junit printsummary="on" haltonfailure="yes">
+            <classpath>
+                <pathelement path="${bin}/test"/>
+                <pathelement path="${bin}"/>
+                <fileset dir="${libs}">
+                    <include name="junit-jar-4.12.jar"/>
+                    <include name="hamcrest-core-jar-1.3.jar"/>
+                </fileset>
+            </classpath>
+            <!-- Format des résultats des tests -->
+            <formatter type="plain" usefile="false"/>
+            <formatter type="xml"/>
+            <batchtest>
+                <fileset dir="test">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <!-- Génération des rapports de tests -->
+    <target name="test-report" depends="test">
+        <mkdir dir="${test.reports}"/>
+        <junitreport todir="${test.reports}">
+            <fileset dir="${test.results.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${test.reports}" />
+        </junitreport>
+    </target>
+
+    <!-- Génération de la documentation Javadoc -->
+    <target name="javadoc">
+        <delete dir="${docs.dir}" />
+        <mkdir dir="${docs.dir}"/>
+        <javadoc destdir="${docs.dir}" sourcepath="${src}" packagenames="fr.ubo.tetris" maxmemory="512m">
+            <fileset dir="${src}">
+                <include name="**/*.java"/>
+            </fileset>
+            <classpath>
+                <pathelement path="${bin}"/>
+                <fileset dir="${libs}">
+                    <include name="junit-jar-4.12.jar"/>
+                    <include name="commons-lang3-jar-3.5.jar"/>
+                    <include name="hamcrest-core-jar-1.3.jar"/>
+                </fileset>
+            </classpath>
+        </javadoc>
+    </target>
+
+    <!-- Cible 'all' pour tout générer -->
+    <target name="all" depends="dist, test-report, javadoc"></target>
+
+</project>
