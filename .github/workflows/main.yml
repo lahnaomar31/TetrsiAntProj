@@ -1,0 +1,31 @@
+name: Build and Test TetrisAntProj
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Docker Image and Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape pour vérifier le dépôt
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Étape pour configurer Docker
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Construire l'image Docker
+      - name: Build Docker Image
+        run: docker build -t tetrisapp .
+
+      # Exécuter le conteneur Docker pour les tests
+      - name: Run Docker Container for Tests
+        run: docker run tetrisapp
