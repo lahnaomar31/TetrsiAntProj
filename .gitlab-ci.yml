@@ -5,12 +5,12 @@ stages:
 compile_job:
   stage: build
   script:
-	- apt-get update && apt-get install -y ant
-	- curl -O https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.5.0/ivy-2.5.0.jar
-	- ant compile
+    - apt-get update && apt-get install -y ant
+    - curl -O https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.5.0/ivy-2.5.0.jar
+    - ant -lib ivy-2.5.0.jar compile
   artifacts:
     paths:
-      - bin/  # Sauvegarder les fichiers compilés
+      - bin/  # Chemin où se trouvent les fichiers compilés
 
 test_job:
   stage: test
