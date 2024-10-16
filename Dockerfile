@@ -1,12 +1,10 @@
-# Utiliser une image de base avec Java 17 installé
-FROM openjdk:17-jdk
+# Utiliser une image Alpine avec Java 17
+FROM openjdk:17-alpine
 
-# Installer curl pour télécharger Ant et Ivy
-RUN apt-get update && \
-    apt-get install -y curl && \
-    apt-get clean
+# Installer curl et bash
+RUN apk add --no-cache curl bash
 
-# Télécharger et installer Ant 1.9.6
+# Télécharger et installer Ant
 RUN curl -O https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.6-bin.tar.gz && \
     tar -xzf apache-ant-1.9.6-bin.tar.gz -C /opt/ && \
     rm apache-ant-1.9.6-bin.tar.gz
@@ -15,18 +13,18 @@ RUN curl -O https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.6-bin.ta
 ENV ANT_HOME=/opt/apache-ant-1.9.6
 ENV PATH=$ANT_HOME/bin:$PATH
 
-# Télécharger et installer Ivy 2.5.0 dans le répertoire lib d'Ant
+# Télécharger et installer Ivy
 RUN curl -O https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.5.0/ivy-2.5.0.jar && \
     mv ivy-2.5.0.jar $ANT_HOME/lib/ivy.jar
 
-# Créer un dossier pour ton projet
+# Définir le répertoire de travail
 WORKDIR /usr/src/app
 
-# Copier tous les fichiers de ton projet dans l'image Docker
+# Copier les fichiers du projet
 COPY . .
 
-# Construire le projet avec les cibles spécifiques
+# Construire et tester le projet avec Ant
 RUN ant clean retrieve compile-test
 
-# Définir le point d'entrée pour exécuter les tests automatiquement lors de l'exécution du conteneur
+# Lancer les tests
 CMD ["ant", "test"]
