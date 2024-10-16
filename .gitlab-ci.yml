@@ -1,6 +1,5 @@
 stages:
   - build
-  - test
 
 build:
   stage: build
@@ -8,24 +7,9 @@ build:
   services:
     - docker:dind
   script:
-    # Construire l'image Docker avec l'application
     - docker build -t tetrisapp .
-  tags: 
-    - dosi
-  artifacts:
-    # Sauvegarder l'image Docker construite pour l'étape de test
-    paths:
-      - tetrisapp
-
-test:
-  stage: test
-  image: docker:latest
-  services:
-    - docker:dind
-  script:
-    # Exécuter les tests en utilisant l'image Docker construite dans l'étape précédente
     - docker run tetrisapp
   tags: 
     - dosi
-  dependencies:
-    - build  # Utiliser les artefacts générés dans l'étape build
+	
+	
