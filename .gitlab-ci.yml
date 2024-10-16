@@ -2,22 +2,17 @@ stages:
   - build
   - test
 
+before_script:
+  # Connexion à Docker Hub avec les identifiants stockés dans les variables d'environnement
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
 build_job:
   stage: build
-  image: docker:latest
-  services:
-    - docker:dind
-  variables:
-    DOCKER_DRIVER: overlay2
   script:
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t my-tetris-app .
 
 test_job:
   stage: test
-  image: docker:latest
-  services:
-    - docker:dind
   script:
     - docker run --rm my-tetris-app
   artifacts:
