@@ -3,7 +3,7 @@ stages:
   - test
 
 before_script:
-  # Connexion à Docker Hub avec les identifiants stockés dans les variables d'environnement
+  # Connexion à Docker Hub avec les variables d'environnement
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 build_job:
