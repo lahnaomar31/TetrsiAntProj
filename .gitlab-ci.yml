@@ -3,7 +3,9 @@ stages:
   - test
 
 before_script:
-  # Connexion à Docker Hub avec les variables d'environnement
+  # Installe Docker
+  - apt-get update && apt-get install -y docker.io
+  # Connexion à Docker Hub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 build_job:
