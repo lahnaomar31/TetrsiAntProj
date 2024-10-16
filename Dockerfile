@@ -1,7 +1,7 @@
 # Utilise une image de base Ubuntu 20.04
 FROM ubuntu:20.04
 
-# Met à jour les paquets et installe les dépendances nécessaires dans une seule commande
+# Met à jour les paquets et installe les dépendances nécessaires
 RUN apt-get update && apt-get install -y --no-install-recommends \
     openjdk-17-jdk \
     ant \
@@ -22,7 +22,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Exécute les étapes de build et de test avec Ant
-RUN ant clean retrieve compile-test test
+RUN ant clean retrieve compile-test
 
 # Définit le point d'entrée pour exécuter les tests automatiquement lors de l'exécution du conteneur
 CMD ["ant", "test"]

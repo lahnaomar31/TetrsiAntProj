@@ -2,11 +2,13 @@ stages:
   - build
   - test
 
+# Job de construction
 build_job:
   stage: build
   script:
     - docker build -t my-tetris-app .
 
+# Job de test
 test_job:
   stage: test
   script:

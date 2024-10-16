@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="dosi" name="fr.isen.tetris.SimpleTest" skipped="0" tests="1" time="0.023" timestamp="2024-10-16T11:32:13">
+<testsuite errors="0" failures="0" hostname="dosi" name="fr.isen.tetris.SimpleTest" skipped="0" tests="1" time="0.075" timestamp="2024-10-16T11:42:27">
   <properties>
     <property name="ivy.retrieve.pattern.ivy.instance" value="/home/dosi/eclipse-workspace/TetrisAntProj/lib/[artifact]-[revision](-[classifier]).[ext]" />
     <property name="ivy.local.default.ivy.pattern.ivy.instance" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" />
@@ -57,7 +57,7 @@
     <property name="ant.project.default-target" value="compile" />
     <property name="ivy.targets.copied" value="true" />
     <property name="ivy.parents.count" value="0" />
-    <property name="sun.java.command" value="org.apache.tools.ant.launch.Launcher -cp  test" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner fr.isen.tetris.SimpleTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=true formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/dosi/eclipse-workspace/TetrisAntProj/bin/test-results/TEST-fr.isen.tetris.SimpleTest.xml formatter=org.apache.tools.ant.taskdefs.optional.junit.PlainJUnitResultFormatter,/home/dosi/eclipse-workspace/TetrisAntProj/bin/test-results/TEST-fr.isen.tetris.SimpleTest.txt crashfile=/home/dosi/eclipse-workspace/TetrisAntProj/junitvmwatcher1734604458966475931.properties propsfile=/home/dosi/eclipse-workspace/TetrisAntProj/junit2439367341705218288.properties" />
     <property name="ivy.shared.default.artifact.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" />
     <property name="ant.file" value="/home/dosi/eclipse-workspace/TetrisAntProj/build.xml" />
     <property name="ivy.distrib.dir.ivy.instance" value="/home/dosi/eclipse-workspace/TetrisAntProj/distrib" />
@@ -167,7 +167,7 @@
     <property name="ivy.revision" value="working@dosi" />
     <property name="user.timezone.ivy.instance" value="Europe/Paris" />
     <property name="java.vm.version" value="17.0.12+7-Ubuntu-1ubuntu222.04" />
-    <property name="java.class.path" value="/opt/ant/lib/ant-launcher.jar:/opt/ant/lib/ant-antlr.jar:/opt/ant/lib/ant-launcher.jar:/opt/ant/lib/ant-apache-xalan2.jar:/opt/ant/lib/ant-apache-resolver.jar:/opt/ant/lib/ant-jmf.jar:/opt/ant/lib/ant-jdepend.jar:/opt/ant/lib/ant-junit.jar:/opt/ant/lib/ivy-2.5.0.jar:/opt/ant/lib/ant-swing.jar:/opt/ant/lib/ant-commons-logging.jar:/opt/ant/lib/ant-jai.jar:/opt/ant/lib/ant.jar:/opt/ant/lib/ant-javamail.jar:/opt/ant/lib/ant-testutil.jar:/opt/ant/lib/ant-apache-regexp.jar:/opt/ant/lib/ant-apache-bcel.jar:/opt/ant/lib/ant-commons-net.jar:/opt/ant/lib/ant-apache-oro.jar:/opt/ant/lib/ant-apache-log4j.jar:/opt/ant/lib/ant-jsch.jar:/opt/ant/lib/ant-netrexx.jar:/opt/ant/lib/ant-junit4.jar:/opt/ant/lib/ant-apache-bsf.jar" />
+    <property name="java.class.path" value="/home/dosi/eclipse-workspace/TetrisAntProj/bin/test:/home/dosi/eclipse-workspace/TetrisAntProj/bin:/home/dosi/eclipse-workspace/TetrisAntProj/lib/hamcrest-core-jar-1.3.jar:/home/dosi/eclipse-workspace/TetrisAntProj/lib/junit-jar-4.12.jar:/opt/ant/lib/ant-launcher.jar:/opt/ant/lib/ant.jar:/opt/ant/lib/ant-junit.jar:/opt/ant/lib/ant-junit4.jar" />
     <property name="ivy.default.ivy.user.dir" value="/home/dosi/.ivy2" />
     <property name="sun.stderr.encoding.ivy.instance" value="UTF-8" />
     <property name="user.home.ivy.instance" value="/home/dosi" />

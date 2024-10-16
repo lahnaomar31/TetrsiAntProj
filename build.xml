@@ -74,7 +74,7 @@
     <!-- Exécution des tests -->
 	<target name="test" depends="compile-test">
 	    <mkdir dir="${test.results.dir}"/>
-	    <junit printsummary="on" haltonfailure="yes">
+	    <junit printsummary="on" haltonfailure="yes" fork="true" showoutput="true">
 	        <classpath>
 	            <pathelement path="${bin}/test"/>
 	            <pathelement path="${bin}"/>
@@ -83,15 +83,15 @@
 	                <include name="hamcrest-core-jar-1.3.jar"/>
 	            </fileset>
 	        </classpath>
-	        <!-- Ajout du formateur pour générer les résultats en XML -->
-	        <formatter type="xml" usefile="true"/>
-	        <batchtest>
+	    	
+            <formatter type="xml"/> <!-- Generate XML results -->
+            <formatter type="plain"/> <!-- Generate plain text output -->
+
+	        <batchtest todir="${test.results.dir}">
 	            <fileset dir="test">
 	                <include name="**/*Test.java"/>
 	            </fileset>
 	        </batchtest>
-	        <!-- Spécification du dossier de sortie pour les résultats -->
-	        <formatter type="xml" usefile="true"/>
 	    </junit>
 	</target>
 
