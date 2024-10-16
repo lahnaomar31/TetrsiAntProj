@@ -2,6 +2,9 @@ stages:
   - build
   - test
 
+before_script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
 build_job:
   stage: build
   script:
