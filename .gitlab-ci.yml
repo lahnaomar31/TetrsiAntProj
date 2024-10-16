@@ -21,3 +21,5 @@ test_job:
   artifacts:
     reports:
       junit: bin/test-results/TEST-*.xml  
+	paths:
+	  - bin/test-results/
