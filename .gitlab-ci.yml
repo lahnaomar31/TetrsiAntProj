@@ -2,26 +2,20 @@ stages:
   - build
   - test
 
-# Étape de compilation
 compile_job:
   stage: build
   script:
     - apt-get update && apt-get install -y ant ivy  # Installer Ant et Ivy
-    - ant compile  # Commande pour compiler le projet avec Apache Ant
+    - ant compile  # Compiler le projet avec Ant
   artifacts:
     paths:
-      - bin/  # Chemin où se trouvent les fichiers compilés
-  only:
-    - main  # Exécuter la compilation uniquement sur la branche 'main'
+      - bin/  # Sauvegarder les fichiers compilés
 
-# Étape d'exécution des tests
 test_job:
   stage: test
   script:
     - apt-get update && apt-get install -y ant ivy  # Installer Ant et Ivy
-    - ant test  # Commande pour exécuter les tests
+    - ant test  # Exécuter les tests unitaires
   artifacts:
     reports:
-      junit: bin/test-results/TEST-*.xml  # Chemin des rapports de tests JUnit
-  only:
-    - main  # Exécuter les tests uniquement sur la branche 'main'
+      junit: bin/test-results/TEST-*.xml  # Générer des rapports JUnit
